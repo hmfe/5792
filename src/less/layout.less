@@ -1,0 +1,56 @@
+//
+//  Common
+//  ______________________________________
+
+@import (reference) 'variables';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: @font__size-base;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: @color__background-primary;
+    color: @color__text-primary;
+    font-family: @font__primary;
+    font-weight: @font__primary--normal;
+    line-height: 1.4;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+header {
+    margin: 0;
+    padding: @indent__l;
+}
+
+.page-title {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+//
+//  Utilities
+//  ____________________________________
+
+// lesshint-disable importantRule
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+// lesshint-enable importantRule

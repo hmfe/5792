@@ -1,0 +1,56 @@
+//
+//  Common
+//  ______________________________________
+
+@import (reference) 'variables';
+
+.search {
+    &__form {
+        max-width: @layout__max-width;
+        margin: 0 auto;
+        padding: @indent__l;
+        position: relative;
+    }
+
+    &__input {
+        width: 100%;
+        padding: @indent__xl;
+        border: 2px solid @color__border-secondary;
+        font-size: 1.3rem;
+        font-weight: @font__primary--medium;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 4px @color__gallery;
+        }
+
+        &:focus + &-placeholder {
+            display: none;
+        }
+    }
+
+    &__input-placeholder {
+        position: absolute;
+        top: @indent__xl + @indent__l;
+        left: @indent__xl + @indent__l;
+        padding-left: @indent__xl;
+        background: url('/UI/assets/search.svg') no-repeat left;
+        background-size: 1.4rem;
+        font-size: 1.3rem;
+        font-weight: @font__primary--medium;
+    }
+
+    &__input-reset {
+        display: inline-block;
+        position: absolute;
+        top: @indent__xxl;
+        right: @indent__xl + @indent__l;
+
+        &:after {
+            content: '\00d7';
+            color: @color__icon-primary;
+            font-size: 3rem;
+            line-height: 1;
+        }
+    }
+}
