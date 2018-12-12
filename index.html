@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>A basic search app for tv shows</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
+    <script data-main="assets/js/main" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
 </head>
 
 <body>
@@ -15,17 +17,27 @@
     </header>
     <main>
         <div class="search">
-          <div class="search__form">
-              <input type="text" class="search__input" id="search__input" value="">
-              <label class="search__input-placeholder" for="search__input">
-                  Search TV Shows
-              </label>
-              <span class="search__input-reset"></span>
-          </div>
+            <div class="search__form">
+                <input type="text" class="search__input" id="search__input" value="" title="Enter search keyword here">
+                <label class="search__input-placeholder" for="search__input">
+                    Search TV Shows
+                </label>
+                <span class="search__input-reset" title="Reset search input box"></span>
+            </div>
+            <div class="search__results"></div>
+            <div class="search__notice">
+                <span class="search__notice-instructions">Write at least 3 letters and only alpha-neumeric characters to search. Enter to save the search
+                    keyword to local history.</span>
+            </div>
         </div>
     </main>
 
+    <aside class="search__history">
+        <h2 class="search__history-title">Search history</h2>
+        <a href="#" class="search__history-delete--all" title="Clear search history">Clear search history</a>
+    </aside>
+
     <script type="text/javascript" src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Promise,Element.prototype.remove?ua=ie/11"></script>
-    <script type="text/javascript" src="assets/js/main.js"></script>
 </body>
+
 </html>

@@ -5,19 +5,33 @@
 @import (reference) 'variables';
 
 .search {
-    &__form {
+    //
+    //  Common Layout
+    //  ____________________________________
+
+    &__form,
+    &__results,
+    &__notice,
+    &__history {
         max-width: @layout__max-width;
         margin: 0 auto;
-        padding: @indent__l;
         position: relative;
+    }
+
+    //
+    //  Form
+    //  ____________________________________
+
+    &__form {
+        padding: @indent__l @indent__l 2px;
     }
 
     &__input {
         width: 100%;
-        padding: @indent__xl;
+        padding: @indent__l;
         border: 2px solid @color__border-secondary;
         font-size: 1.3rem;
-        font-weight: @font__primary--medium;
+        font-weight: 500;
 
         &:focus {
             outline: none;
@@ -31,26 +45,222 @@
 
     &__input-placeholder {
         position: absolute;
-        top: @indent__xl + @indent__l;
-        left: @indent__xl + @indent__l;
+        top: @indent__xxl;
+        left: @indent__xxl;
         padding-left: @indent__xl;
         background: url('/UI/assets/search.svg') no-repeat left;
         background-size: 1.4rem;
         font-size: 1.3rem;
-        font-weight: @font__primary--medium;
+        font-weight: 500;
     }
 
     &__input-reset {
         display: inline-block;
         position: absolute;
-        top: @indent__xxl;
-        right: @indent__xl + @indent__l;
-
+        top: @indent__xl;
+        right: @indent__xl;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: .2s all;
+        
+        &:before, 
         &:after {
-            content: '\00d7';
+            position: absolute;
+            content: ' ';
+            top: 8px;
+            right: 18px;
+            height: 24px;
+            width: 3px;
+            background: @color__icon-primary;
+            cursor: pointer;
+        }
+        &:before {
+            transform: rotate(45deg);
+        }
+        &:after {
+            transform: rotate(-45deg);
+        }
+        
+        &:hover {
+            background: @color__icon-primary;
+
+            &:before, 
+            &:after {
+                background: @color__white;
+            }
+        }
+    }
+
+    //
+    //  Result
+    //  ____________________________________
+
+    &__results {
+        padding: 0 @indent__l;
+    }
+
+    &__results-list {
+        margin: 0;
+        padding: @indent__m @indent__l;
+        list-style: none;
+        background: @color__background-secondary;
+        border: 2px solid @color__border-secondary;
+    }
+
+    &__results-item {
+        font-size: 1rem;
+        line-height: 1.8em;
+        font-weight: 400;
+    }
+
+    //
+    //  Messages
+    //  ____________________________________
+
+    &__notice {
+        padding: @indent__s @indent__l @indent__l;
+        font-size: .9rem;
+        font-style: italic;
+        line-height: 1.4em;
+
+        span {
+            display: block;
+        }
+    }
+
+    &__error {
+        color: @color__red;
+    }
+
+    //
+    //  History
+    //  ____________________________________
+
+    &__history {
+        padding: 0 @indent__l @indent__l;
+    }
+
+    &__history-title {
+        font-size: @font-size__h2;
+    }
+
+    &__history-delete--all {
+        font-weight: 500;
+    }
+
+    &__history-list {
+        margin: 0;
+        padding: 0 0 @indent__xl;
+        list-style: none;
+
+        li {
+            display: flex;
+            flex-flow: row wrap;
+            border-top: 2px solid @color__border-primary;
+            font-size: 1.1rem;
+            line-height: 3em;
+            font-weight: 400;
+        }
+
+        .item {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .date {
+            flex: 1;
+            padding: 0 @indent__s;
             color: @color__icon-primary;
-            font-size: 3rem;
-            line-height: 1;
+            font-size: 1rem;
+            text-align: right;
+        }
+    }
+
+    &__history-delete--item {
+        position: relative;
+        margin-top: 6px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        opacity: .4;
+        
+        &:hover {
+            opacity: 1;
+            background: @color__white;
+        }
+        
+        &:before, 
+        &:after {
+            position: absolute;
+            top: 7px;
+            left: 13px;
+            content: ' ';
+            height: 14px;
+            width: 2px;
+            background: @color__black;
+        }
+        &:before {
+            transform: rotate(45deg);
+        }
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+
+    &__history-delete--all {
+        position: absolute;
+        top: @indent__xs;
+        right: @indent__l;
+        border-bottom: 1px solid @color__border-secondary;
+    }
+}
+
+
+//
+//  Tablets + Desktop
+//  ____________________________________
+
+@media (min-width: @breakpoint__s) {
+    .search {
+        &__input {
+            padding: @indent__xl;
+        }
+
+        &__input-placeholder {
+            top: @indent__xl + @indent__l;
+            left: @indent__xl + @indent__l;
+        }
+        &__input-reset {
+            top: @indent__xxl;
+            right: @indent__xxl;
+        }
+
+        &__results-list {
+            padding: @indent__l @indent__xl;
+        }
+    
+        &__results-item {
+            line-height: 2em;
+        }
+
+        &__history {
+            padding: 0 @indent__l+@indent__xl @indent__l;
+        }
+
+        &__history-list {
+            .item {
+                flex: 2;
+            }
+    
+            .date {
+                padding: 0 @indent__l;
+            }
+        }
+
+        &__history-delete--all {
+            right: @indent__l + @indent__xl;
         }
     }
 }

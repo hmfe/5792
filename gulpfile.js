@@ -3,16 +3,16 @@
  ======================== */
 
  const paths = {
-    src: 'src/',
-    dest: 'assets/',
+    src: './src/',
+    dest: './assets/',
     js: {
-        src: 'src/js/',
-        dest: 'assets/js/',
+        src: './src/js/',
+        dest: './assets/js/',
         file: 'main.js'
     },
     css: {
-        src: 'src/less/',
-        dest: 'assets/css/',
+        src: './src/less/',
+        dest: './assets/css/',
         file: 'main.css'
     }
 };
@@ -39,7 +39,7 @@ const pkg = require('./package.json'),
  ======================== */
 
 gulp.task('js', () =>
-    gulp.src(paths.js.src + '*.js')
+    gulp.src(paths.js.src + '**/*')
         .pipe(plumber(function (error) {
             console.log('=> Error with Javascript: '+ error.message);
             this.emit('end');
@@ -47,7 +47,6 @@ gulp.task('js', () =>
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(babel())
-        .pipe(concat(paths.js.file))
         .pipe(minify({
             ext: {
                 min: '.js'

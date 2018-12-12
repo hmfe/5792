@@ -20,7 +20,7 @@ body {
     background: @color__background-primary;
     color: @color__text-primary;
     font-family: @font__primary;
-    font-weight: @font__primary--normal;
+    font-weight: 400;
     line-height: 1.4;
     text-align: left;
     -webkit-font-smoothing: antialiased;
@@ -32,12 +32,33 @@ body {
 header {
     margin: 0;
     padding: @indent__l;
+    text-align: center;
+}
+
+//
+//  Typography
+//  ____________________________________
+
+a {
+    color: @color__link-primary;
+    text-decoration: none;
+    transition: .2s all;
+
+    &:hover {
+        color: @color__link-active;
+    }
 }
 
 .page-title {
-    font-weight: bold;
-    text-align: center;
+    display: inline-block;
+    margin: @indent__l 0 0;
+    padding-bottom: @indent__s;
+    color: @color__text-primary;
+    border-bottom: 1px solid @color__border-secondary;
+    font-family: @font__primary;
+    font-size: @font-size__h1--mobile;
     text-transform: uppercase;
+    letter-spacing: .5rem;
 }
 
 
@@ -54,3 +75,15 @@ header {
     display: block !important;
 }
 // lesshint-enable importantRule
+
+//
+//  Tablets + Desktop
+//  ____________________________________
+
+@media (min-width: @breakpoint__s) {
+    .page-title {
+        margin: @indent__l auto;
+        font-size: @font-size__h1;
+    }
+}
+
