@@ -13,9 +13,9 @@
     &__results,
     &__notice,
     &__history {
-        max-width: @layout__max-width;
-        margin: 0 auto;
         position: relative;
+        margin: 0 auto;
+        max-width: @layout__max-width;
     }
 
     //
@@ -27,8 +27,8 @@
     }
 
     &__input {
-        width: 100%;
         padding: @indent__l;
+        width: 100%;
         border: 2px solid @color__border-secondary;
         font-size: 1.3rem;
         font-weight: 500;
@@ -59,10 +59,9 @@
         position: absolute;
         top: @indent__xl;
         right: @indent__xl;
-        width: 40px;
         height: 40px;
+        width: 40px;
         border-radius: 50%;
-        cursor: pointer;
         transition: .2s all;
         
         &:before, 
@@ -74,7 +73,6 @@
             height: 24px;
             width: 3px;
             background: @color__icon-primary;
-            cursor: pointer;
         }
         &:before {
             transform: rotate(45deg);
@@ -88,7 +86,7 @@
 
             &:before, 
             &:after {
-                background: @color__white;
+                background: @color__background-secondary;
             }
         }
     }
@@ -111,8 +109,8 @@
 
     &__results-item {
         font-size: 1rem;
-        line-height: 1.8em;
         font-weight: 400;
+        line-height: 1.8em;
     }
 
     //
@@ -160,13 +158,17 @@
             flex-flow: row wrap;
             border-top: 2px solid @color__border-primary;
             font-size: 1.1rem;
-            line-height: 3em;
             font-weight: 400;
+            line-height: 3em;
+
+            &:last-of-type {
+                border-bottom: 2px solid @color__border-primary;
+            }
         }
 
         .item {
-            font-weight: 500;
             flex: 1;
+            font-weight: 500;
         }
 
         .date {
@@ -181,22 +183,22 @@
     &__history-delete--item {
         position: relative;
         margin-top: 6px;
-        width: 28px;
         height: 28px;
+        width: 28px;
         border-radius: 50%;
         opacity: .4;
         
         &:hover {
+            background: @color__background-secondary;
             opacity: 1;
-            background: @color__white;
         }
         
         &:before, 
         &:after {
             position: absolute;
+            content: ' ';
             top: 7px;
             left: 13px;
-            content: ' ';
             height: 14px;
             width: 2px;
             background: @color__black;

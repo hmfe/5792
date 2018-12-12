@@ -26,11 +26,11 @@ define([], function () {
         },
 
         /**
-         * @param {string|null} item 
+         * @param {string|null} storageItem 
          * @returns {boolean}
          */
-        doesStorageItemExist: function (item = null) {
-            return this.isLocalStorageSupported() && window.localStorage.getItem(item) !== null;
+        doesStorageItemExist: function (storageItem = null) {
+            return this.isLocalStorageSupported() && window.localStorage.getItem(storageItem) !== null;
         },
 
         /*
@@ -38,7 +38,7 @@ define([], function () {
          ======================== */
 
         /**
-         * @param {string} storageItem 
+         * @param {string|null} storageItem 
          * @returns {string}
          */
         getLocalStorage: function (storageItem) {
@@ -46,17 +46,17 @@ define([], function () {
         },
 
         /**
-         * @param {string} storageItem 
+         * @param {string|null} storageItem 
          * @param {string} data 
          */
-        addItemToStorage: function (storageItem, data) {
+        addItemToStorage: function (storageItem, data = '') {
             if (this.isLocalStorageSupported()) {
                 window.localStorage.setItem(storageItem, data);
             }
         },
 
         /**
-         * @param {string} storageItem 
+         * @param {string|null} storageItem 
          */
         deleteLocalStorage: function (storageItem) {
             if (this.doesStorageItemExist(storageItem)) {

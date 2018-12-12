@@ -36,20 +36,20 @@ define([
 
     let search = {
         /*
-         * Prepare and create
+         * Public funtions
          ======================== */
 
         create: function () {
-            this.bindSearchInputEvents();
-            this.bindResetEvent();
+            this._bindSearchInputEvents();
+            this._bindResetEvent();
             history.createSearchHistoryFeed();
         },
 
         search: function () {
             let self = this,
-                searchedKey = this.getSearchedKey();
+                searchedKey = this._getSearchedKey();
 
-            if (!this.validateSearchedKey(searchedKey)) {
+            if (!this._validateSearchedKey(searchedKey)) {
                 return false;
             }
 
@@ -69,11 +69,19 @@ define([
                 });
         },
 
+        /*
+         * Process/display search results
+         ======================== */
+
         /**
          * @private
-         * @param {object} data 
+         * @param {object|null} data 
          */
         _prepareResults: function (data) {
+            if (!data) {
+                return;
+            }
+
             let items = fetch.getItems(data),
                 itemsCount = fetch.getItemsCount(items, config.maxLength),
                 responseError = fetch.getFetchError(data, itemsCount);
@@ -93,16 +101,20 @@ define([
 
         /**
          * @private
-         * @param {object} items 
-         * @param {number} itemsCount 
+         * @param {object|null} items 
+         * @param {number|null} itemsCount 
          */
         _showResults: function (items, itemsCount) {
+            if (!items && !itemsCount) {
+                return;
+            }
+
             let resultsHtml = '',
                 resultsList = document.createElement('ul'),
                 resultsWrapper = document.querySelector(config.selectors.results);
 
             for (let i = 0; i < itemsCount; i++) {
-                resultsHtml += this._formatResultItems(items[i]);
+                resultsHtml += this._formatResultItem(items[i]);
             }
 
             resultsList.insertAdjacentHTML('beforeend', resultsHtml);
@@ -112,13 +124,16 @@ define([
 
         /**
          * @private
-         * @param {object} item
+         * @param {object|null} item
          * @returns {string}
          */
-        _formatResultItems: function (item) {
+        _formatResultItem: function (item) {
             return item ? `<li class="${config.selectors.listItem}">${item.show.name}</li>` : '';
         },
 
+        /**
+         * @private
+         */
         _removeResultList: function () {
             document.querySelectorAll('.' + config.selectors.list).forEach(function (list) {
                 list.remove();
@@ -126,39 +141,23 @@ define([
         },
 
         /*
-         * Search result items
+         * Process search input
          ======================== */
 
         /**
-         * @returns {HTMLElement}
+         * @private
          */
-        getSearchInput: function () {
-            return document.getElementById(config.selectors.input);
-        },
-
-        /**
-         * @returns {string}
-         */
-        getSearchedKey: function () {
-            return this.getSearchInput() ? this.getSearchInput().value : '';
-        },
-
-        /**
-         * @param {string} key 
-         * @returns {boolean}
-         */
-        validateSearchedKey: function (key) {
-            return key && key.length >= config.minSearchLength && /^[a-z0-9\s]+$/i.test(key);
-        },
-
-        bindSearchInputEvents: function () {
-            this.getSearchInput().addEventListener('keyup', function (e) {
+        _bindSearchInputEvents: function () {
+            this._getSearchInput().addEventListener('keyup', function (event) {
                 this.togglePlaceholder();
-                this.processSearchInput(e);
+                this.processSearchInput(event);
             }.bind(this), false);
         },
 
-        processSearchInput: utilities.debounce(function (event) {
+        /**
+         * @private
+         */
+        _processSearchInput: utilities.debounce(function (event) {
             this.search();
 
             if (event.keyCode == 13) {
@@ -171,18 +170,53 @@ define([
             }
         }, 250),
 
-        bindResetEvent: function () {
-            document.querySelector(config.selectors.inputReset).onclick = function (e) {
+        /**
+         * @private
+         * @returns {HTMLElement}
+         */
+        _getSearchInput: function () {
+            return document.getElementById(config.selectors.input);
+        },
+
+        /**
+         * @private
+         * @returns {string}
+         */
+        _getSearchedKey: function () {
+            return this._getSearchInput() ? this._getSearchInput().value : '';
+        },
+
+        /**
+         * @private
+         * @param {string} key 
+         * @returns {boolean}
+         */
+        _validateSearchedKey: function (key) {
+            return key && key.length >= config.minSearchLength && /^[a-z0-9\s]+$/i.test(key);
+        },
+
+        /*
+         * Other search form actions
+         ======================== */
+
+        /**
+         * @private
+         */
+        _bindResetEvent: function () {
+            document.querySelector(config.selectors.inputReset).onclick = function (event) {
                 this.getSearchInput().value = '';
                 this.togglePlaceholder();
                 this.removeResultList();
             }.bind(this);
         },
 
-        togglePlaceholder: function () {
+        /**
+         * @private
+         */
+        _togglePlaceholder: function () {
             let placeholder = document.querySelector(config.selectors.inputPlaceholder);
 
-            if (this.getSearchInput().value.length > 0) {
+            if (this._getSearchInput().value.length > 0) {
                 placeholder.style.display = "none";
             } else {
                 placeholder.style.display = "";

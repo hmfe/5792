@@ -40,12 +40,12 @@ header {
 //  ____________________________________
 
 a {
-    color: @color__link-primary;
+    color: @color__text-primary;
     text-decoration: none;
     transition: .2s all;
 
     &:hover {
-        color: @color__link-active;
+        color: lighten(@color__text-primary, 25%);
     }
 }
 

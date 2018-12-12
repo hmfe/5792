@@ -28,13 +28,8 @@ define([
 
     let searchHistory = {
         /*
-         * Prepare and create
+         * Add history and items to storage
          ======================== */
-
-        createSearchHistoryFeed: function () {
-            this._showSearchHistory();
-            this._bindDeleteHistoryEvent();
-        },
         
         /**
          * @param {string|null} key
@@ -80,6 +75,15 @@ define([
             this._toggleSearchResultDisplay();
         },
 
+        /*
+         * Create history list
+         ======================== */
+
+        createSearchHistoryFeed: function () {
+            this._showSearchHistory();
+            this._bindDeleteHistoryEvent();
+        },
+
         /**
          * @private
          */
@@ -97,6 +101,19 @@ define([
             historyList.classList.add(config.selectors.list);
             document.querySelector(config.selectors.wrapper).appendChild(historyList);
 
+            this._toggleSearchResultDisplay();
+        },
+
+        /*
+         * Delete history & results
+         ======================== */
+
+        /**
+         * @private
+         */
+        _deleteSearchHistory: function () {
+            storage.deleteLocalStorage(config.storage);
+            this._removeSearchResults();
             this._toggleSearchResultDisplay();
         },
 
@@ -146,15 +163,6 @@ define([
         /**
          * @private
          */
-        _deleteSearchHistory: function () {
-            storage.deleteLocalStorage(config.storage);
-            this._removeSearchResults();
-            this._toggleSearchResultDisplay();
-        },
-
-        /**
-         * @private
-         */
         _removeSearchResults: function () {
             let target = document.querySelectorAll('.' + config.selectors.list);
 
@@ -163,9 +171,13 @@ define([
             }
         },
 
+        /*
+         * Local utilities
+         ======================== */
+
         /**
          * @private
-         * @param {object} item
+         * @param {object|null} item
          * @returns {string}
          */
         _formatHistoryItem: function (item) {

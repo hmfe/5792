@@ -10,10 +10,11 @@ define([], function () {
          ======================== */
 
         /**
-         * @param {string} url 
+         * @param {string|null} url 
+         * @returns {object|null}
          */
         fetchData: function (url) {
-            return new Promise(function (resolve, reject) {
+            return url ? new Promise(function (resolve, reject) {
                 let xhr = new XMLHttpRequest();
 
                 xhr.open('GET', url);
@@ -37,7 +38,7 @@ define([], function () {
                 };
 
                 xhr.send();
-            });
+            }) : null;
         },
 
         /**
@@ -75,31 +76,36 @@ define([], function () {
          ======================== */
 
         /**
-         * @param {object} response
+         * @param {object|null} response 
+         * @param {number} count 
          * @returns {string}
          */
-        getErrorFailedResponse: function (response) {
+        getFetchError: function (
+            response, 
+            count = 0
+        ) {
+            let errorFail = this._getErrorFailedResponse(response) ? this._getErrorFailedResponse(response) : '';
+            errorFail = errorFail ? errorFail : this._getErrorNoItems(count);
+
+            return errorFail;
+        },
+
+        /**
+         * @private
+         * @param {object|null} response
+         * @returns {string}
+         */
+        _getErrorFailedResponse: function (response) {
             return response && response.status === 404 ? `<strong>Error:</strong> ${response.statusText}.` : '';
         },
 
         /**
+         * @private
          * @param {number} count 
          * @returns {string}
          */
-        getErrorNoItems: function (count) {
+        _getErrorNoItems: function (count = 0) {
             return count < 1 ? `<strong>Error:</strong> No result found.` : '';
-        },
-
-        /**
-         * @param {object} response 
-         * @param {number} count 
-         * @returns {string}
-         */
-        getFetchError: function (response, count) {
-            let errorFail = this.getErrorFailedResponse(response) ? this.getErrorFailedResponse(response) : '';
-            errorFail = errorFail ? errorFail : this.getErrorNoItems(count);
-
-            return errorFail;
         }
     }
 

@@ -5,7 +5,7 @@
 define([], function () {
     var utilities = {
         /*
-         * Loader and error
+         * Display loader and error messages
          ======================== */
 
         /**
@@ -37,7 +37,7 @@ define([], function () {
         },
 
         /**
-         * @param {string} errorResponse 
+         * @param {string|null} errorResponse 
          * @param {string} prefix 
          * @param {string} target 
          */
@@ -50,6 +50,10 @@ define([], function () {
                 errMsg.remove();
             });
 
+            if (!errorResponse) {
+                return;
+            }
+
             let errorNotice = document.createElement('div'),
                 errorNoticeTarget = document.querySelector(target);
 
@@ -60,13 +64,13 @@ define([], function () {
         },
 
         /*
-         * Performance
+         * Performance utilities
          ======================== */
 
         /**
          * @param {Function} func 
          * @param {number} wait 
-         * @param {boolean} immediate 
+         * @param {boolean|null} immediate 
          */
         debounce: function (func, wait, immediate) {
             let timeout;
