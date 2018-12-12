@@ -15,6 +15,9 @@ define([
      * Configuration
      ======================== */
 
+    /**
+     * @type {object} config
+     */
     const config = {
         url: 'http://api.tvmaze.com/search/shows?q=',
         maxLength: 10,
@@ -50,12 +53,12 @@ define([
                 return false;
             }
 
-            this.removeResultList();
+            this._removeResultList();
             utilities.createLoader(config.classPrefix, config.selectors.notice);
 
             fetch.fetchData(config.url + searchedKey)
                 .then(function (response) {
-                    self.prepareResults(response);
+                    self._prepareResults(response);
                 }, function (response) {
                     utilities.destroyLoader(config.classPrefix);
                     utilities.showErrorNotFound(
@@ -66,7 +69,11 @@ define([
                 });
         },
 
-        prepareResults: function (data) {
+        /**
+         * @private
+         * @param {object} data 
+         */
+        _prepareResults: function (data) {
             let items = fetch.getItems(data),
                 itemsCount = fetch.getItemsCount(items, config.maxLength),
                 responseError = fetch.getFetchError(data, itemsCount);
@@ -78,19 +85,24 @@ define([
                     config.selectors.notice
                 );
             } else {
-                this.showResults(items, itemsCount);
+                this._showResults(items, itemsCount);
             }
 
             utilities.destroyLoader(config.classPrefix);
         },
 
-        showResults: function (items, itemsCount) {
+        /**
+         * @private
+         * @param {object} items 
+         * @param {number} itemsCount 
+         */
+        _showResults: function (items, itemsCount) {
             let resultsHtml = '',
                 resultsList = document.createElement('ul'),
                 resultsWrapper = document.querySelector(config.selectors.results);
 
             for (let i = 0; i < itemsCount; i++) {
-                resultsHtml += this.formatResultItems(items[i]);
+                resultsHtml += this._formatResultItems(items[i]);
             }
 
             resultsList.insertAdjacentHTML('beforeend', resultsHtml);
@@ -98,28 +110,43 @@ define([
             resultsWrapper.appendChild(resultsList);
         },
 
-        formatResultItems: function (item) {
+        /**
+         * @private
+         * @param {object} item
+         * @returns {string}
+         */
+        _formatResultItems: function (item) {
             return item ? `<li class="${config.selectors.listItem}">${item.show.name}</li>` : '';
         },
 
-        removeResultList: function () {
+        _removeResultList: function () {
             document.querySelectorAll('.' + config.selectors.list).forEach(function (list) {
                 list.remove();
             });
         },
 
         /*
-         * Gallery items
+         * Search result items
          ======================== */
 
+        /**
+         * @returns {HTMLElement}
+         */
         getSearchInput: function () {
             return document.getElementById(config.selectors.input);
         },
 
+        /**
+         * @returns {string}
+         */
         getSearchedKey: function () {
             return this.getSearchInput() ? this.getSearchInput().value : '';
         },
 
+        /**
+         * @param {string} key 
+         * @returns {boolean}
+         */
         validateSearchedKey: function (key) {
             return key && key.length >= config.minSearchLength && /^[a-z0-9\s]+$/i.test(key);
         },
@@ -131,10 +158,10 @@ define([
             }.bind(this), false);
         },
 
-        processSearchInput: utilities.debounce(function (e) {
+        processSearchInput: utilities.debounce(function (event) {
             this.search();
 
-            if (e.keyCode == 13) {
+            if (event.keyCode == 13) {
                 let searchedKey = this.getSearchedKey();
 
                 if (this.validateSearchedKey(searchedKey)) {
@@ -160,11 +187,6 @@ define([
             } else {
                 placeholder.style.display = "";
             }
-        },
-
-        errorGalleryUnprepared: function (msg) {
-            utilities.showErrorNotFound(msg);
-            utilities.destroyLoader();
         }
     }
 

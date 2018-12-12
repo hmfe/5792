@@ -13,6 +13,9 @@ define([
      * Configuration
      ======================== */
 
+    /**
+     * @type {object} config
+     */
     const config = {
         storage: 'search-history',
         selectors: {
@@ -29,11 +32,18 @@ define([
          ======================== */
 
         createSearchHistoryFeed: function () {
-            this.showSearchHistory();
-            this.bindDeleteHistoryEvent();
+            this._showSearchHistory();
+            this._bindDeleteHistoryEvent();
         },
-
+        
+        /**
+         * @param {string|null} key
+         */
         saveHistoryToStorage: function (key) {
+            if (!key) {
+                return;
+            }
+
             let storedHistory = storage.getLocalStorage(config.storage),
                 items = storedHistory ? JSON.parse(storedHistory) : [],
                 newItem = {
@@ -45,42 +55,55 @@ define([
             storage.addItemToStorage(config.storage, JSON.stringify(items));
         },
 
+        /**
+         * @param {string|null} key
+         */
         addNewSearchToHistoryList: function (key) {
+            if (!key) {
+                return;
+            }
+            
             let historyList = document.querySelector('.' + config.selectors.list);
 
             if (historyList.length < 1) {
-                this.showSearchHistory();
-                return true;
+                this._showSearchHistory();
+                return;
             }
 
             let items = {
                     'title': key,
                     'date': utilities.getFormattedDate()
                 },
-                historyHtml = this.formatHistoryItem(items);
+                historyHtml = this._formatHistoryItem(items);
 
             historyList.insertAdjacentHTML('afterbegin', historyHtml);
-            this.toggleSearchResultDisplay();
+            this._toggleSearchResultDisplay();
         },
 
-        showSearchHistory: function () {
+        /**
+         * @private
+         */
+        _showSearchHistory: function () {
             let storedHistory = storage.getLocalStorage(config.storage),
                 items = storedHistory ? JSON.parse(storedHistory) : [],
                 historyHtml = '',
                 historyList = document.createElement('ul');
 
             for (let i = 0; i < items.length; i++) {
-                historyHtml += this.formatHistoryItem(items[i]);
+                historyHtml += this._formatHistoryItem(items[i]);
             }
 
             historyList.insertAdjacentHTML('beforeend', historyHtml);
             historyList.classList.add(config.selectors.list);
             document.querySelector(config.selectors.wrapper).appendChild(historyList);
 
-            this.toggleSearchResultDisplay();
+            this._toggleSearchResultDisplay();
         },
 
-        bindDeleteHistoryEvent: function () {
+        /**
+         * @private
+         */
+        _bindDeleteHistoryEvent: function () {
             document.querySelector(config.selectors.deleteAll).onclick = function () {
                 this.deleteSearchHistory();
             }.bind(this);
@@ -92,9 +115,18 @@ define([
             }.bind(this), false);
         },
 
-        deleteSearchHistoryItem: function (e) {
-            let deleteHistoryItem = e.target,
-                storedHistory = storage.getLocalStorage(config.storage),
+        /**
+         * @private
+         * @param {object} event
+         */
+        _deleteSearchHistoryItem: function (event) {
+            let deleteHistoryItem = event.target;
+
+            if (!deleteHistoryItem) {
+                return;
+            }
+
+            let storedHistory = storage.getLocalStorage(config.storage),
                 items = storedHistory ? JSON.parse(storedHistory) : [],
                 newStorage = [];
 
@@ -108,16 +140,22 @@ define([
 
             storage.addItemToStorage(config.storage, JSON.stringify(newStorage));
 
-            this.toggleSearchResultDisplay();
+            this._toggleSearchResultDisplay();
         },
 
-        deleteSearchHistory: function () {
+        /**
+         * @private
+         */
+        _deleteSearchHistory: function () {
             storage.deleteLocalStorage(config.storage);
-            this.removeSearchResults();
-            this.toggleSearchResultDisplay();
+            this._removeSearchResults();
+            this._toggleSearchResultDisplay();
         },
 
-        removeSearchResults: function () {
+        /**
+         * @private
+         */
+        _removeSearchResults: function () {
             let target = document.querySelectorAll('.' + config.selectors.list);
 
             if (target && target.length > 0) {
@@ -125,7 +163,12 @@ define([
             }
         },
 
-        formatHistoryItem: function (item) {
+        /**
+         * @private
+         * @param {object} item
+         * @returns {string}
+         */
+        _formatHistoryItem: function (item) {
             return item ? `<li>
                             <span class="item">${item.title}</span>
                             <span class="date">${item.date}</span>
@@ -134,7 +177,10 @@ define([
                         ` : '';
         },
 
-        toggleSearchResultDisplay: function () {
+        /**
+         * @private
+         */
+        _toggleSearchResultDisplay: function () {
             let storedHistory = storage.getLocalStorage(config.storage),
                 historyWrapper = document.querySelector(config.selectors.wrapper);
 

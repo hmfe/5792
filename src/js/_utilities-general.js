@@ -8,6 +8,10 @@ define([], function () {
          * Loader and error
          ======================== */
 
+        /**
+         * @param {string} prefix 
+         * @param {string} target 
+         */
         createLoader: function (
             prefix = 'loader',
             target = 'body'
@@ -16,11 +20,14 @@ define([], function () {
                 loaderTarget = document.querySelector(target);
 
             loader.classList.add(prefix + '__loader');
-            loader.insertAdjacentHTML('beforeend', `Loading flickr gallery...`);
+            loader.insertAdjacentHTML('beforeend', `Searching...`);
 
             loaderTarget.appendChild(loader);
         },
 
+        /**
+         * @param {string} prefix 
+         */
         destroyLoader: function (prefix = 'loader') {
             let loader = document.querySelectorAll('.' + prefix + '__loader');
 
@@ -29,6 +36,11 @@ define([], function () {
             }
         },
 
+        /**
+         * @param {string} errorResponse 
+         * @param {string} prefix 
+         * @param {string} target 
+         */
         showErrorNotFound: function (
             errorResponse,
             prefix = 'error',
@@ -51,6 +63,11 @@ define([], function () {
          * Performance
          ======================== */
 
+        /**
+         * @param {Function} func 
+         * @param {number} wait 
+         * @param {boolean} immediate 
+         */
         debounce: function (func, wait, immediate) {
             let timeout;
 
@@ -76,6 +93,9 @@ define([], function () {
          * Additional Utilities
          ======================== */
 
+        /**
+         * @returns {string}
+         */
         getFormattedDate: function () {
             let options = {
                     year: 'numeric',
