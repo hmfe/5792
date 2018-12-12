@@ -122,12 +122,12 @@ define([
          */
         _bindDeleteHistoryEvent: function () {
             document.querySelector(config.selectors.deleteAll).onclick = function () {
-                this.deleteSearchHistory();
+                this._deleteSearchHistory();
             }.bind(this);
 
             document.addEventListener('click', function (e) {
                 if (e.target.classList.contains(config.selectors.deleteItem)) {
-                    this.deleteSearchHistoryItem(e);
+                    this._deleteSearchHistoryItem(e);
                 }
             }.bind(this), false);
         },

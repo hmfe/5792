@@ -54,6 +54,7 @@ define([
             }
 
             this._removeResultList();
+            utilities.removeErrorMessages(config.classPrefix);
             utilities.createLoader(config.classPrefix, config.selectors.notice);
 
             fetch.fetchData(config.url + searchedKey)
@@ -149,8 +150,8 @@ define([
          */
         _bindSearchInputEvents: function () {
             this._getSearchInput().addEventListener('keyup', function (event) {
-                this.togglePlaceholder();
-                this.processSearchInput(event);
+                this._togglePlaceholder();
+                this._processSearchInput(event);
             }.bind(this), false);
         },
 
@@ -161,9 +162,9 @@ define([
             this.search();
 
             if (event.keyCode == 13) {
-                let searchedKey = this.getSearchedKey();
+                let searchedKey = this._getSearchedKey();
 
-                if (this.validateSearchedKey(searchedKey)) {
+                if (this._validateSearchedKey(searchedKey)) {
                     history.saveHistoryToStorage(searchedKey);
                     history.addNewSearchToHistoryList(searchedKey);
                 }
@@ -204,9 +205,9 @@ define([
          */
         _bindResetEvent: function () {
             document.querySelector(config.selectors.inputReset).onclick = function (event) {
-                this.getSearchInput().value = '';
-                this.togglePlaceholder();
-                this.removeResultList();
+                this._getSearchInput().value = '';
+                this._togglePlaceholder();
+                this._removeResultList();
             }.bind(this);
         },
 

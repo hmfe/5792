@@ -46,9 +46,7 @@ define([], function () {
             prefix = 'error',
             target = 'body'
         ) {
-            document.querySelectorAll('.' + prefix + '__error').forEach(function (errMsg) {
-                errMsg.remove();
-            });
+            this.removeErrorMessages(prefix);
 
             if (!errorResponse) {
                 return;
@@ -61,6 +59,15 @@ define([], function () {
             errorNotice.insertAdjacentHTML('beforeend', errorResponse);
 
             errorNoticeTarget.appendChild(errorNotice);
+        },
+
+        /**
+         * @param {string} prefix 
+         */
+        removeErrorMessages: function (prefix = 'error') {
+            document.querySelectorAll('.' + prefix + '__error').forEach(function (errMsg) {
+                errMsg.remove();
+            });
         },
 
         /*
