@@ -49,7 +49,10 @@ define([], function () {
          * @param {string|null} storageItem 
          * @param {string} data 
          */
-        addItemToStorage: function (storageItem, data = '') {
+        addItemToStorage: function (
+            storageItem, 
+            data = ''
+        ) {
             if (this.isLocalStorageSupported()) {
                 window.localStorage.setItem(storageItem, data);
             }

@@ -25,11 +25,12 @@ define([
         classPrefix: 'search',
         selectors: {
             input: 'search__input',
+            list: 'search__results-list',
+            listItem: 'search__results-item',
+            
             inputPlaceholder: '.search__input-placeholder',
             inputReset: '.search__input-reset',
             results: '.search__results',
-            list: 'search__results-list',
-            listItem: 'search__results-item',
             notice: '.search__notice'
         }
     };

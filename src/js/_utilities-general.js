@@ -65,8 +65,8 @@ define([], function () {
          * @param {string} prefix 
          */
         removeErrorMessages: function (prefix = 'error') {
-            document.querySelectorAll('.' + prefix + '__error').forEach(function (errMsg) {
-                errMsg.remove();
+            document.querySelectorAll('.' + prefix + '__error').forEach(function (errorMessage) {
+                errorMessage.remove();
             });
         },
 

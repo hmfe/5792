@@ -125,9 +125,9 @@ define([
                 this._deleteSearchHistory();
             }.bind(this);
 
-            document.addEventListener('click', function (e) {
-                if (e.target.classList.contains(config.selectors.deleteItem)) {
-                    this._deleteSearchHistoryItem(e);
+            document.addEventListener('click', function (event) {
+                if (event.target.classList.contains(config.selectors.deleteItem)) {
+                    this._deleteSearchHistoryItem(event);
                 }
             }.bind(this), false);
         },
@@ -156,7 +156,6 @@ define([
             }
 
             storage.addItemToStorage(config.storage, JSON.stringify(newStorage));
-
             this._toggleSearchResultDisplay();
         },
 

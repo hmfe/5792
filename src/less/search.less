@@ -63,8 +63,8 @@
         width: 40px;
         border-radius: 50%;
         transition: .2s all;
-        
-        &:before, 
+
+        &:before,
         &:after {
             position: absolute;
             content: ' ';
@@ -74,17 +74,19 @@
             width: 3px;
             background: @color__icon-primary;
         }
+
         &:before {
             transform: rotate(45deg);
         }
+
         &:after {
             transform: rotate(-45deg);
         }
-        
+
         &:hover {
             background: @color__icon-primary;
 
-            &:before, 
+            &:before,
             &:after {
                 background: @color__background-secondary;
             }
@@ -187,13 +189,13 @@
         width: 28px;
         border-radius: 50%;
         opacity: .4;
-        
+
         &:hover {
             background: @color__background-secondary;
             opacity: 1;
         }
-        
-        &:before, 
+
+        &:before,
         &:after {
             position: absolute;
             content: ' ';
@@ -203,9 +205,11 @@
             width: 2px;
             background: @color__black;
         }
+
         &:before {
             transform: rotate(45deg);
         }
+
         &:after {
             transform: rotate(-45deg);
         }
@@ -234,6 +238,7 @@
             top: @indent__xl + @indent__l;
             left: @indent__xl + @indent__l;
         }
+
         &__input-reset {
             top: @indent__xxl;
             right: @indent__xxl;
@@ -242,10 +247,11 @@
         &__results-list {
             padding: @indent__l @indent__xl;
         }
-    
+
         &__results-item {
             line-height: 2em;
         }
+
         &__notice {
             padding: @indent__s @indent__xl + @indent__l @indent__l;
         }
@@ -258,7 +264,7 @@
             .item {
                 flex: 2;
             }
-    
+
             .date {
                 padding: 0 @indent__l;
             }
