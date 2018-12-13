@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
-    <script data-main="assets/js/main" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <script data-main="assets/js/main" src="assets/lib/requirejs.min.js"></script>
 </head>
 
 <body>
@@ -17,11 +17,15 @@
     <main>
         <div class="search">
             <div class="search__form">
-                <input type="text" class="search__input" id="search__input" value="" title="Enter search keyword here">
+                <input type="text" 
+                    class="search__input" id="search__input" 
+                    title="Enter search keyword here" value="">
                 <label class="search__input-placeholder" for="search__input">
                     Search TV Shows
                 </label>
-                <a href="javascript:void(0)" class="search__input-reset" title="Reset search input box"></a>
+                <button type="button" 
+                    class="search__btn-reset" id="search__btn-reset" 
+                    title="Reset search input" value="">
             </div>
             <div class="search__results"></div>
             <div class="search__notice">

@@ -29,6 +29,7 @@
     &__input {
         padding: @indent__l;
         width: 100%;
+        background: @color__background-secondary;
         border: 2px solid @color__border-secondary;
         font-size: 1.3rem;
         font-weight: 500;
@@ -47,22 +48,24 @@
         position: absolute;
         top: @indent__xxl;
         left: @indent__xxl;
-        padding-left: @indent__xl;
-        background: url('/UI/assets/search.svg') no-repeat left;
-        background-size: 1.4rem;
         font-size: 1.3rem;
         font-weight: 500;
     }
 
-    &__input-reset {
+    &__btn-reset {
         display: inline-block;
         position: absolute;
         top: @indent__xl;
         right: @indent__xl;
         height: 40px;
         width: 40px;
+        background: @color__background-secondary;
+        border: 0;
         border-radius: 50%;
+        box-shadow: none;
+        outline: none;
         transition: .2s all;
+        cursor: pointer;
 
         &:before,
         &:after {
@@ -239,7 +242,7 @@
             left: @indent__xl + @indent__l;
         }
 
-        &__input-reset {
+        &__btn-reset {
             top: @indent__xxl;
             right: @indent__xxl;
         }

@@ -29,7 +29,7 @@ define([
             listItem: 'search__results-item',
             
             inputPlaceholder: '.search__input-placeholder',
-            inputReset: '.search__input-reset',
+            inputReset: '.search__btn-reset',
             results: '.search__results',
             notice: '.search__notice'
         }
