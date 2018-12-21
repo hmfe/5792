@@ -1,0 +1,1 @@
+"use strict";require.config({baseUrl:"assets/js",paths:{utilities:"_utilities-general",storage:"_utilities-storage",fetch:"_utilities-fetch",search:"_feature-search",history:"_feature-search-history"}});define(["search"],function(e){e.create()});

@@ -1,0 +1,278 @@
+//
+//  Common
+//  ______________________________________
+
+@import (reference) 'variables';
+
+.search {
+    //
+    //  Common Layout
+    //  ____________________________________
+
+    &__form,
+    &__results,
+    &__notice,
+    &__history {
+        position: relative;
+        margin: 0 auto;
+        max-width: @layout__max-width;
+    }
+
+    //
+    //  Form
+    //  ____________________________________
+
+    &__form {
+        padding: @indent__l @indent__l 2px;
+    }
+
+    &__input {
+        padding: @indent__l;
+        width: 100%;
+        background: @color__background-secondary;
+        border: 2px solid @color__border-secondary;
+        font-size: 1.3rem;
+        font-weight: 500;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 4px @color__gallery;
+        }
+
+        &:focus + &-placeholder {
+            display: none;
+        }
+    }
+
+    &__input-placeholder {
+        position: absolute;
+        top: @indent__xxl;
+        left: @indent__xxl;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+    &__btn-reset {
+        display: inline-block;
+        position: absolute;
+        top: @indent__xl;
+        right: @indent__xl;
+        height: 40px;
+        width: 40px;
+        background: @color__background-secondary;
+        border: 0;
+        border-radius: 50%;
+        box-shadow: none;
+        outline: none;
+        transition: .2s all;
+        cursor: pointer;
+
+        &:before,
+        &:after {
+            position: absolute;
+            content: ' ';
+            top: 8px;
+            right: 18px;
+            height: 24px;
+            width: 3px;
+            background: @color__icon-primary;
+        }
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+
+        &:hover {
+            background: @color__icon-primary;
+
+            &:before,
+            &:after {
+                background: @color__background-secondary;
+            }
+        }
+    }
+
+    //
+    //  Result
+    //  ____________________________________
+
+    &__results {
+        padding: 0 @indent__l;
+    }
+
+    &__results-list {
+        margin: 0;
+        padding: @indent__m @indent__l;
+        max-height: 200px;
+        overflow: auto;
+        list-style: none;
+        background: @color__background-secondary;
+        border: 2px solid @color__border-secondary;
+    }
+
+    &__results-item {
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 2.4rem;
+    }
+
+    //
+    //  Messages
+    //  ____________________________________
+
+    &__notice {
+        padding: @indent__s @indent__l @indent__l;
+        font-size: .9rem;
+        font-style: italic;
+        line-height: 1.4em;
+
+        span {
+            display: block;
+        }
+    }
+
+    &__error {
+        color: @color__red;
+    }
+
+    //
+    //  History
+    //  ____________________________________
+
+    &__history {
+        padding: 0 @indent__l @indent__l;
+    }
+
+    &__history-title {
+        font-size: @font-size__h2;
+    }
+
+    &__history-delete--all {
+        font-weight: 500;
+    }
+
+    &__history-list {
+        margin: 0;
+        padding: 0 0 @indent__xl;
+        list-style: none;
+
+        li {
+            display: flex;
+            flex-flow: row wrap;
+            border-top: 2px solid @color__border-primary;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 3em;
+
+            &:last-of-type {
+                border-bottom: 2px solid @color__border-primary;
+            }
+        }
+
+        .item {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .date {
+            flex: 1;
+            padding: 0 @indent__s;
+            color: @color__icon-primary;
+            font-size: 1rem;
+            text-align: right;
+        }
+    }
+
+    &__history-delete--item {
+        position: relative;
+        margin-top: 6px;
+        height: 28px;
+        width: 28px;
+        border-radius: 50%;
+        opacity: .4;
+
+        &:hover {
+            background: @color__background-secondary;
+            opacity: 1;
+        }
+
+        &:before,
+        &:after {
+            position: absolute;
+            content: ' ';
+            top: 7px;
+            left: 13px;
+            height: 14px;
+            width: 2px;
+            background: @color__black;
+        }
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+
+    &__history-delete--all {
+        position: absolute;
+        top: @indent__xs;
+        right: @indent__l;
+        border-bottom: 1px solid @color__border-secondary;
+    }
+}
+
+
+//
+//  Tablets + Desktop
+//  ____________________________________
+
+@media (min-width: @breakpoint__s) {
+    .search {
+        &__input {
+            padding: @indent__xl;
+        }
+
+        &__input-placeholder {
+            top: @indent__xl + @indent__l;
+            left: @indent__xl + @indent__l;
+        }
+
+        &__btn-reset {
+            top: @indent__xxl;
+            right: @indent__xxl;
+        }
+
+        &__results-list {
+            padding: @indent__l @indent__xl;
+        }
+
+        &__notice {
+            padding: @indent__s @indent__xl + @indent__l @indent__l;
+        }
+
+        &__history {
+            padding: 0 @indent__l+@indent__xl @indent__l;
+        }
+
+        &__history-list {
+            .item {
+                flex: 2;
+            }
+
+            .date {
+                padding: 0 @indent__l;
+            }
+        }
+
+        &__history-delete--all {
+            right: @indent__l + @indent__xl;
+        }
+    }
+}

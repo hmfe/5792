@@ -1,0 +1,75 @@
+//
+//  Common
+//  ______________________________________
+
+@import (reference) 'variables';
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: @font__size-base;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: @color__background-primary;
+    color: @color__text-primary;
+    font-family: @font__primary;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+header,
+footer {
+    margin: 0;
+    padding: @indent__l;
+    text-align: center;
+}
+
+
+//
+//  Typography
+//  ____________________________________
+
+a {
+    color: @color__text-primary;
+    text-decoration: none;
+    transition: .2s all;
+
+    &:hover {
+        color: lighten(@color__text-primary, 25%);
+    }
+}
+
+.page-title {
+    display: inline-block;
+    margin: @indent__l 0 0;
+    padding-bottom: @indent__s;
+    color: @color__text-primary;
+    border-bottom: 1px solid @color__border-secondary;
+    font-family: @font__primary;
+    font-size: @font-size__h1--mobile;
+    text-transform: uppercase;
+    letter-spacing: .5rem;
+}
+
+//
+//  Tablets + Desktop
+//  ____________________________________
+
+@media (min-width: @breakpoint__s) {
+    .page-title {
+        margin: @indent__l auto;
+        font-size: @font-size__h1;
+    }
+}

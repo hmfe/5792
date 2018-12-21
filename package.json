@@ -1,0 +1,72 @@
+{
+  "name": "search-app",
+  "version": "1.0.0",
+  "author": "Abhisek Pandey",
+  "description": "A basic search app for tv shows",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmfe/5792.git"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2",
+    "@babel/preset-env": "^7.2.0",
+    "acorn": "^6.0.4",
+    "babel-cli": "^6.26",
+    "gulp": "^3.9",
+    "gulp-babel": "^8.0",
+    "gulp-concat": "^2.6",
+    "gulp-cssmin": "^0.2",
+    "gulp-eslint": "^5.0",
+    "gulp-less": "^4.0",
+    "gulp-lesshint": "^5.0",
+    "gulp-load-plugins": "^1.5",
+    "gulp-minify": "^3.0",
+    "gulp-plumber": "^1.2",
+    "http-server": "^0.11",
+    "less-plugin-autoprefix": "^2.0",
+    "livereload": "^0.7",
+    "npm-run-all": "^4.0",
+    "run-sequence": "^2.2"
+  },
+  "scripts": {
+    "server:livereload": "livereload ./",
+    "server:serve": "http-server ./ -p 8080",
+    "server:build": "gulp",
+    "server:watch": "gulp watch",
+    "prestart": "npm install --no-audit",
+    "start": "npm-run-all --parallel server:*"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": "> 0.25%, not dead"
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "script",
+      "ecmaFeatures": {
+        "impliedStrict": true
+      }
+    },
+    "env": {
+      "browser": true
+    }
+  },
+  "lesshint": {
+    "fileExtensions": [
+      ".less",
+      ".css"
+    ],
+    "zeroUnit": false,
+    "propertyOrdering": false,
+    "hexLength": false,
+    "universalSelector": false,
+    "decimalZero": false
+  }
+}
