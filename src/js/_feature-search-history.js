@@ -21,7 +21,7 @@ define([
         selectors: {
             wrapper: '.search__history',
             list: 'search__history-list',
-            deleteAll: '.search__history-delete--all',
+            deleteAll: 'search__history-delete--all',
             deleteItem: 'search__history-delete--item'
         }
     };
@@ -58,21 +58,21 @@ define([
                 return;
             }
             
-            let historyList = document.querySelector('.' + config.selectors.list);
+            let historyLists = document.querySelectorAll('.' + config.selectors.list);
 
-            if (historyList.length < 1) {
+            if (historyLists && historyLists.length > 0) {
+                let items = {
+                        'title': key,
+                        'date': utilities.getFormattedDate()
+                    },
+                    historyHtml = this._formatHistoryItem(items),
+                    historyList = historyLists[0];
+    
+                historyList.insertAdjacentHTML('afterbegin', historyHtml);
+                this._toggleSearchResultDisplay();
+            } else {
                 this._showSearchHistory();
-                return;
             }
-
-            let items = {
-                    'title': key,
-                    'date': utilities.getFormattedDate()
-                },
-                historyHtml = this._formatHistoryItem(items);
-
-            historyList.insertAdjacentHTML('afterbegin', historyHtml);
-            this._toggleSearchResultDisplay();
         },
 
         /*
@@ -121,11 +121,11 @@ define([
          * @private
          */
         _bindDeleteHistoryEvent: function () {
-            document.querySelector(config.selectors.deleteAll).onclick = function () {
-                this._deleteSearchHistory();
-            }.bind(this);
-
             document.addEventListener('click', function (event) {
+                if (event.target.classList.contains(config.selectors.deleteAll)) {
+                    this._deleteSearchHistory();
+                }
+
                 if (event.target.classList.contains(config.selectors.deleteItem)) {
                     this._deleteSearchHistoryItem(event);
                 }

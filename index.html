@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet" type="text/css">
     <script data-main="assets/js/main" src="assets/lib/requirejs.min.js"></script>
 </head>
 
@@ -25,7 +25,7 @@
                 </label>
                 <button type="button" 
                     class="search__btn-reset" id="search__btn-reset" 
-                    title="Reset search input" value="">
+                    title="Reset search input"></button>
             </div>
             <div class="search__results"></div>
             <div class="search__notice">
@@ -39,6 +39,12 @@
         <h2 class="search__history-title">Search history</h2>
         <a href="javascript:void(0)" class="search__history-delete--all" title="Clear search history">Clear search history</a>
     </aside>
+
+    <footer>
+        <button type="button" 
+            class="btn-close" id="btn-close" 
+            title="Close Window" onclick="window.close();">Close</button>
+    </footer>
 
     <script type="text/javascript" src="https://cdn.polyfill.io/v1/polyfill.min.js?features=Promise,Element.prototype.remove?ua=ie/11"></script>
 </body>

@@ -107,15 +107,17 @@
     &__results-list {
         margin: 0;
         padding: @indent__m @indent__l;
+        max-height: 200px;
+        overflow: auto;
         list-style: none;
         background: @color__background-secondary;
         border: 2px solid @color__border-secondary;
     }
 
     &__results-item {
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.8em;
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 2.4rem;
     }
 
     //
@@ -249,10 +251,6 @@
 
         &__results-list {
             padding: @indent__l @indent__xl;
-        }
-
-        &__results-item {
-            line-height: 2em;
         }
 
         &__notice {

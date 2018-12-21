@@ -42,6 +42,7 @@ define([
 
         create: function () {
             this._bindSearchInputEvents();
+            this._bindSaveResultEvent();
             this._bindResetEvent();
             history.createSearchHistoryFeed();
         },
@@ -130,7 +131,13 @@ define([
          * @returns {string}
          */
         _formatResultItem: function (item) {
-            return item ? `<li class="${config.selectors.listItem}">${item.show.name}</li>` : '';
+            return item 
+                ? `<li>
+                        <a href="javascript:void(0)" class="${config.selectors.listItem}">
+                            ${item.show.name}
+                        </a>
+                    </li>`
+                : '';
         },
 
         /**
@@ -159,17 +166,24 @@ define([
         /**
          * @private
          */
+        _bindSaveResultEvent: function () {
+            document.addEventListener('click', function (event) {
+                if (event.target.classList.contains(config.selectors.listItem)) {
+                    let selectedItem = event.target.textContent;
+
+                    if (selectedItem && selectedItem.length > 0) {
+                        history.saveHistoryToStorage(selectedItem);
+                        history.addNewSearchToHistoryList(selectedItem);
+                    }
+                }
+            }.bind(this), false);
+        },
+
+        /**
+         * @private
+         */
         _processSearchInput: utilities.debounce(function (event) {
             this.search();
-
-            if (event.keyCode == 13) {
-                let searchedKey = this._getSearchedKey();
-
-                if (this._validateSearchedKey(searchedKey)) {
-                    history.saveHistoryToStorage(searchedKey);
-                    history.addNewSearchToHistoryList(searchedKey);
-                }
-            }
         }, 250),
 
         /**
